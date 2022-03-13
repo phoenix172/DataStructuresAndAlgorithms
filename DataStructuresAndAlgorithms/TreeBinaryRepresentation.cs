@@ -10,8 +10,8 @@ public class TreeBinaryRepresentation
         int diff = k.Value - m;
 
         if (diff > 0) return str.PadLeft(k.Value, '0');
-        else if (diff == 0) return str;
-        else return str.Substring(-diff);
+        if (diff == 0) return str;
+        return str.Substring(-diff);
     }
 
     public void Run()
