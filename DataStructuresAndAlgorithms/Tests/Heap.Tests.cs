@@ -6,6 +6,29 @@ namespace ConsoleApp1;
 public class HeapTests
 {
     [Test]
+    public void Insert_NewMax_InsertsAsRoot()
+    {
+        var heap = Heap<int>.Create(TestData.SampleArray);
+        heap.Insert(100);
+
+        Assert.AreEqual(100, heap.Maximum().Value);
+    }
+
+    [Test]
+    public void ExtractMax_ReturnsCorrectItemsInOrder()
+    {
+        var heap = Heap<int>.Create(TestData.SampleArray);
+        
+        Assert.AreEqual(44,heap.ExtractMax().Value);
+        Assert.AreEqual(41,heap.ExtractMax().Value);
+        Assert.AreEqual(35,heap.ExtractMax().Value);
+        Assert.AreEqual(35, heap.ExtractMax().Value);
+        Assert.AreEqual(32, heap.ExtractMax().Value);
+        Assert.AreEqual(32, heap.ExtractMax().Value);
+        Assert.AreEqual(30, heap.ExtractMax().Value);
+    }
+
+    [Test]
     public void EmptyItem_EqualToAny()
     {
         var tree = new Tree<int>(TestData.SampleArray);

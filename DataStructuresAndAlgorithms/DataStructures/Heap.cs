@@ -10,6 +10,21 @@ public class Heap<T>
         _tree = BuildHeap(items);
     }
 
+    public TreeItem<T> Maximum() => _tree[0];
+    public TreeItem<T> ExtractMax() => ExtractMax(null);
+    public Heap<T> Insert(T item)
+    {
+        var ancestors =_tree.Append(item).Ancestors(_tree.Count - 1);
+        RemoveInversions(ancestors);
+        return this;
+    }
+
+    public Heap<T> RemoveInversions(IEnumerable<int> indices)
+    {
+        indices.Aggregate(_tree, (current, i) => current.Heapify(i));
+        return this;
+    }
+
     public static Heap<T> Create(params T[] items)
     {
         return new Heap<T>(items);
@@ -43,9 +58,16 @@ public class Heap<T>
     {
         return Enumerable.Range(0,_tree.Count-1).Reverse().Select(i =>
         {
-            T result = _tree[0].Value;
-            _tree.Swap(0, i).Trim().Heapify(0);
+            var result = ExtractMax(i).Value;
             return result;
         });
+    }
+
+    private TreeItem<T> ExtractMax(int? i)
+    {
+        i ??= _tree.Count - 1;
+        TreeItem<T> result = _tree[0];
+        _tree.Swap(0, i.Value).Trim().Heapify(0);
+        return result;
     }
 }

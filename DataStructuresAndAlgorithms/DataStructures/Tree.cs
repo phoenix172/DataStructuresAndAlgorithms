@@ -12,11 +12,9 @@ public class Tree<T> : IReadOnlyList<TreeItem<T>> where T : IComparable
         _vertices = new(items.Select(x => new TreeItem<T>(x)));
     }
 
-    public int VertexCount => _vertices.Count;
-
     public IEnumerable<int> InnerVertices() => Enumerable.Range(0, (int) Math.Floor(_vertices.Count / 2d));
 
-    public bool Exists(int index) => index > -1 && index < VertexCount;
+    public bool Exists(int index) => index > -1 && index < Count;
 
     public int Right(int index)
     {
@@ -34,6 +32,13 @@ public class Tree<T> : IReadOnlyList<TreeItem<T>> where T : IComparable
 
     public int Parent(int index, int parentDegree) =>
         parentDegree > 1 ? Parent(Parent(index), parentDegree - 1) : Parent(index);
+
+    public Tree<T> Append(T item)
+    {
+        _vertices.Add(new TreeItem<T>(item));
+        return this;
+    }
+
 
     public IEnumerable<int> Ancestors(int index)
     {
