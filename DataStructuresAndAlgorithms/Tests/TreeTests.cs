@@ -1,6 +1,7 @@
-﻿using NUnit.Framework;
+﻿using DataStructuresAndAlgorithms.DataStructures;
+using NUnit.Framework;
 
-namespace ConsoleApp1;
+namespace DataStructuresAndAlgorithms.Tests;
 
 public class TreeTests
 {

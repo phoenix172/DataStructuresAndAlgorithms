@@ -1,4 +1,4 @@
-﻿namespace ConsoleApp1;
+﻿namespace DataStructuresAndAlgorithms.DataStructures;
 
 public static class TreeExtensions
 {

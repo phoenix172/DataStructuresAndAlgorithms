@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics.Contracts;
-using ConsoleApp1;
+using DataStructuresAndAlgorithms.DataStructures;
 using NUnit.Framework;
 
 namespace DataStructuresAndAlgorithms.Tests

@@ -1,4 +1,4 @@
-﻿namespace ConsoleApp1;
+﻿namespace DataStructuresAndAlgorithms.DataStructures;
 
 public class Heap<T>
     where T : IComparable

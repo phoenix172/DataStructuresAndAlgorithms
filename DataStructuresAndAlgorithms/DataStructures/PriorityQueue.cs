@@ -1,4 +1,4 @@
-﻿namespace ConsoleApp1;
+﻿namespace DataStructuresAndAlgorithms.DataStructures;
 
 public class PriorityQueue<T>
     where T: IComparable

@@ -1,7 +1,6 @@
 ﻿using System.Collections;
-using System.Reflection.Metadata.Ecma335;
 
-namespace ConsoleApp1;
+namespace DataStructuresAndAlgorithms.DataStructures;
 
 public class Tree<T> : IReadOnlyList<TreeItem<T>> where T : IComparable
 {
@@ -12,7 +11,7 @@ public class Tree<T> : IReadOnlyList<TreeItem<T>> where T : IComparable
         _vertices = new(items.Select(x => new TreeItem<T>(x)));
     }
 
-    public IEnumerable<int> InnerVertices() => Enumerable.Range(0, (int) Math.Floor(_vertices.Count / 2d));
+    public IEnumerable<int> InnerVertices() => Enumerable.Range(0, (int)Math.Floor(_vertices.Count / 2d));
 
     public bool Exists(int index) => index > -1 && index < Count;
 
@@ -28,7 +27,7 @@ public class Tree<T> : IReadOnlyList<TreeItem<T>> where T : IComparable
         return Exists(leftIndex) ? leftIndex : -1;
     }
 
-    public int Parent(int index) => index + 1 != 1 ? (int) Math.Floor((index + 1) / 2d) - 1 : index;
+    public int Parent(int index) => index + 1 != 1 ? (int)Math.Floor((index + 1) / 2d) - 1 : index;
 
     public int Parent(int index, int parentDegree) =>
         parentDegree > 1 ? Parent(Parent(index), parentDegree - 1) : Parent(index);
@@ -38,7 +37,6 @@ public class Tree<T> : IReadOnlyList<TreeItem<T>> where T : IComparable
         _vertices.Add(new TreeItem<T>(item));
         return this;
     }
-
 
     public IEnumerable<int> Ancestors(int index)
     {
@@ -80,7 +78,6 @@ public class Tree<T> : IReadOnlyList<TreeItem<T>> where T : IComparable
 
     public int LastNonLeafIndex() => InnerVertices().LastOrDefault(-1);
 
-
     public Tree<T> Swap(int a, int b)
     {
         (_vertices[a], _vertices[b]) = (_vertices[b], _vertices[a]);
@@ -89,9 +86,9 @@ public class Tree<T> : IReadOnlyList<TreeItem<T>> where T : IComparable
 
     public int Compare(int a, int b) => this[a].CompareTo(this[b]);
 
-    public Tree<T> Trim(int count= 1)
+    public Tree<T> Trim(int count = 1)
     {
-        _vertices.RemoveAt(_vertices.Count-1);
+        _vertices.RemoveAt(_vertices.Count - 1);
         return this;
     }
 
@@ -100,70 +97,4 @@ public class Tree<T> : IReadOnlyList<TreeItem<T>> where T : IComparable
     public IEnumerator<TreeItem<T>> GetEnumerator() => _vertices.GetEnumerator();
     IEnumerator IEnumerable.GetEnumerator() => _vertices.GetEnumerator();
     public int Count => _vertices.Count;
-}
-
-public struct TreeItem<T> : IComparable
-    where T : IComparable
-{
-    public static readonly TreeItem<T> Empty = new(){ IsEmpty = true };
-
-    public TreeItem(T item)
-    {
-        Value = item;
-        IsEmpty = false;
-    }
-
-    public bool IsEmpty { get; private init; }
-
-    public T Value { get; }
-
-    public int CompareTo(object? obj)
-    {
-        if (obj is TreeItem<T> treeItem)
-        {
-            return treeItem.IsEmpty || IsEmpty ? 0 : Value.CompareTo(treeItem.Value);
-        }
-
-        return 0;
-    }
-
-    public override string? ToString()
-    {
-        return Value?.ToString();
-    }
-
-    public bool Equals(TreeItem<T> other)
-    {
-        return EqualityComparer<T>.Default.Equals(Value, other.Value);
-    }
-
-    public override bool Equals(object? obj)
-    {
-        return obj is TreeItem<T> other && Equals(other);
-    }
-
-    public override int GetHashCode()
-    {
-        return EqualityComparer<T>.Default.GetHashCode(Value);
-    }
-
-    public static bool operator <(TreeItem<T> left, TreeItem<T> right)
-    {
-        return left.CompareTo(right) < 0;
-    }
-
-    public static bool operator >(TreeItem<T> left, TreeItem<T> right)
-    {
-        return left.CompareTo(right) > 0;
-    }
-
-    public static bool operator ==(TreeItem<T> left, TreeItem<T> right)
-    {
-        return left.CompareTo(right) == 0;
-    }
-
-    public static bool operator !=(TreeItem<T> left, TreeItem<T> right)
-    {
-        return left.CompareTo(right) != 0;
-    }
 }
